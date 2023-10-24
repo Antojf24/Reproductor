@@ -1,0 +1,126 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    width: 100%;
+    height: 100vh;
+    background-color: #ebebeb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.contenedor{
+    width: 30%;
+    height: 95vh;
+    background-color: #F2F2F2;
+    box-shadow: 0px 0px 10px 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.preview{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.nombre{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nombre p{
+    font-size: medium;
+}
+
+.nombre h3{
+    padding: 5px 0px;
+}
+
+.imagen img{
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+    padding: 5px 0px;
+}
+
+.barra{
+    width: 80%;
+    height: 10px;
+    background-color: #CCCCCC;
+    border-radius: 25px;
+    margin: 10px 0px 0px 0px;
+
+}
+
+.progressBar{
+    background-color: #2BC48A;
+    height: 100%;
+    border-radius: 25px;
+    animation: progressBar 25s linear infinite;
+}
+
+@keyframes progressBar {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
+
+.duracion{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.duracion span{
+    font-size: small;
+    padding: 5px 0px;
+}
+
+.repro{
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.lista{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0px;
+    gap: 10px;
+}
+
+.cancion{
+    width: 90%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cancion img{
+    width: 50px;
+    height: auto;
+    border-radius: 5px;
+}
+
+.cancion p{
+    font-size: small;
+}

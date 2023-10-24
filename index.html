@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/style.css">
+        <script src="./js/script.js" defer></script>
+        <title>Reproductor de Música</title>
+    </head>
+    <body>
+        <main class="contenedor">
+            <section class="preview">
+                <div class="nombre">
+                    <p>Escuchando:</p>
+                    <h3 id="nombre">Nombre de la canción</h3>
+                </div>
+                <div class="imagen">
+                    <img src="https://via.placeholder.com/300" alt="Imagen" id="imagen">
+                </div>
+                <div class="barra">
+                    <div class="progressBar"></div>
+                </div>
+                <div class="duracion">
+                    <span>00:00</span>
+                    <span>00:00</span>
+                </div>
+            </section>
+            <section class="repro">
+                <div class="botones">
+                    <img src="./img/bucle.png" alt="bucle" class="bucle" id="bucle">
+                </div>
+                <div class="botones">
+                    <img src="./img/atras.png" alt="anterior" class="anterior" id="anterior">
+                </div>
+                <div class="ini-stop">
+                    <img src="./img/play.png" alt="play" class="play" id="play">
+                </div>
+                <div class="botones">
+                    <img src="./img/siguiente.png" alt="siguiente" class="siguiente" id="siguiente">
+                </div>
+                <div class="botones">
+                    <img src="./img/aleatorio.png" alt="aleatorio" class="aleatorio" id="aleatorio">
+                </div>
+            </section>
+            <section class="lista" id="lista">
+                <div class="cancion" id="1">
+                    <img src="./img/IReallyWannaStayAtYourHouse.jpg" alt="Imagen">
+                    <div class="datos">
+                        <p>Canción:</p>
+                        <h4>I Really Want to Stay at Your House</h4>
+                        <audio id="cp" src="./aud/I Really Want to Stay at Your House.mp3"></audio>
+                    </div>
+                </div>
+                <div class="cancion" id="2">
+                    <img src="./img/RulesOfNature.jpg" alt="Imagen">
+                    <div class="datos">
+                        <p>Canción:</p>
+                        <h4>Rules of Nature</h4>
+                        <audio id="mgr" src="./aud/Rules of Nature.mp3"></audio>
+                    </div>
+                </div>
+                <div class="cancion" id="3">
+                    <img src="./img/SnakeEater.jpg" alt="Imagen">
+                    <div class="datos">
+                        <p>Canción:</p>
+                        <h4>Snake Eater</h4>
+                        <audio id="mg3" src="./aud/Snake Eater.mp3"></audio>
+                    </div>
+                </div>
+                <div class="cancion" id="4">
+                    <img src="./img/BeneathTheMask.jpg" alt="Imagen">
+                    <div class="datos">
+                        <p>Canción:</p>
+                        <h4>Beneath the Mask</h4>
+                        <audio id="p5r" src="./aud/Beneath the Mask.mp3"></audio>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>
