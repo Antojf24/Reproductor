@@ -13,13 +13,13 @@ const songs = [
     },
     {
         "id": 3,
-        "title": "I Really Want to Stay at Your House",
+        "title": "Snake Eater",
         "image": "./img/SnakeEater.jpg",
         "audio": "./aud/Snake Eater.mp3"
     },
     {
         "id": 4,
-        "title": "I Really Want to Stay at Your House",
+        "title": "Beneath the Mask",
         "image": "./img/BeneathTheMask.jpg",
         "audio": "./aud/Beneath the Mask.mp3"
     }
