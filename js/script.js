@@ -1,103 +1,171 @@
-const cyberpunkS = document.getElementById("cp");
-const risingS = document.getElementById("mgr");
-const snakeS = document.getElementById("mg3");
-const personaS = document.getElementById("p5r");
+const songs = [
+    {
+        "id": 1,
+        "title": "I Really Want to Stay at Your House",
+        "image": "./img/IReallyWannaStayAtYourHouse.jpg",
+        "audio": "./aud/I Really Want to Stay at Your House.mp3"
+    },
+    {
+        "id": 2,
+        "title": "Rules of Nature",
+        "image": "./img/RulesOfNature.jpg",
+        "audio": "./aud/Rules of Nature.mp3"
+    },
+    {
+        "id": 3,
+        "title": "I Really Want to Stay at Your House",
+        "image": "./img/SnakeEater.jpg",
+        "audio": "./aud/Snake Eater.mp3"
+    },
+    {
+        "id": 4,
+        "title": "I Really Want to Stay at Your House",
+        "image": "./img/BeneathTheMask.jpg",
+        "audio": "./aud/Beneath the Mask.mp3"
+    }
+];
 
+const title = document.getElementById("nombre");
+const img = document.getElementById("imagen");
 
-const nombre = document.getElementById("nombre");
-const imagen = document.getElementById("imagen");
+const duration = document.getElementById("duracion");
 
-const cyberpunk = document.getElementById("1");
-const rising = document.getElementById("2");
-const snake = document.getElementById("3");
-const persona = document.getElementById("4");
+const playPause = document.getElementById("play");
+const repeat = document.getElementById("bucle");
+const shuffle = document.getElementById("aleatorio");
+const previus = document.getElementById("anterior");
+const next = document.getElementById("siguiente");
 
-cyberpunk.addEventListener("click", function(){
-    nombre.innerHTML = "I Really Want to Stay at Your House";
-    imagen.setAttribute("src", "./img/IReallyWannaStayAtYourHouse.jpg");
-    plays("cp");
+const list = document.getElementById("lista");
+
+let songsList = [];
+let currentIdSong = 1;
+let currentSong;
+let audio = new Audio();
+let repeatSong = false;
+let shuffleSong = false;
+let totalDuration;
+let pause = true;
+
+duration.value = 0;
+audio.volume = 0.5;
+
+songs.forEach(song =>{
+    let div = document.createElement("div");
+    div.classList = "cancion";
+    div.id = `${song.id}`;
+    div.innerHTML = `
+        <img src="${song.image}" alt="Imagen">
+        <div class="datos">
+            <p>Canción:</p>
+            <h4>${song.title}</h4>
+            <audio src="${song.audio}"></audio>
+        </div>
+    `;
+    div.addEventListener("click", () =>{
+        setCurrentSong(song.id);
+        playAudio();
+    });
+    list.append(div);
+    let newSong = {
+        "id": song.id, 
+        "title": song.title, 
+        "image": song.image,
+        "audio": song.audio
+    };
+    songsList.push(newSong);
 });
 
-rising.addEventListener("click", function(){
-    nombre.innerHTML = "Rules of Nature";
-    imagen.setAttribute("src", "./img/RulesOfNature.jpg");
-    plays("mgr");
+duration.addEventListener("change", () =>{
+    let time = (duration.value * totalDuration) / 100;
+    audio.currentTime = time;
+    duration.value = time;
 });
 
-snake.addEventListener("click", function(){
-    nombre.innerHTML = "Snake Eater";
-    imagen.setAttribute("src", "./img/SnakeEater.jpg");
-    plays("mg3");
+audio.addEventListener("durationchange", () =>{
+    duration.value = 0;
+    totalDuration = audio.duration;
 });
 
-persona.addEventListener("click", function(){
-    nombre.innerHTML = "Beneath the Mask";
-    imagen.setAttribute("src", "./img/BeneathTheMask.jpg");
-    plays("p5r");
+audio.addEventListener("timeupdate", () => {
+    duration.value = Math.floor((audio.currentTime * 100) / totalDuration);
 });
 
-const bucle = document.getElementById("bucle");
-const start = document.getElementById("play");
-const aleatorio = document.getElementById("aleatorio");
+audio.addEventListener("ended", () => {
+    setTimeout(() => {
+        if (audio.loop === false) {
+        nextSong();
+        }
+    }, 1000);
+});
 
-let bucleBoolean = true;
-let pausa = true;
-let aleatorioBoolean = true;
-
-bucle.addEventListener("click", function(){
-    if(bucleBoolean == true){
-        bucle.setAttribute("src", "./img/bucleVerde.png");
-        bucleBoolean = false;
-    }else if(bucleBoolean == false){
-        bucle.setAttribute("src", "./img/bucle.png");
-        bucleBoolean = true;
+repeat.addEventListener("click", () =>{
+    if(audio.loop === false){
+        audio.loop = true;
+        repeat.setAttribute("src", "./img/bucleVerde.png");
+    }else{
+        audio.loop = false;
+        repeat.setAttribute("src", "./img/bucle.png");
     }
 });
 
-start.addEventListener("click", plays);
-
-aleatorio.addEventListener("click", function(){
-    if(aleatorioBoolean == true){
-        aleatorio.setAttribute("src", "./img/aleatorioVerde.png");
-        aleatorioBoolean = false;
-    }else if(aleatorioBoolean == false){
-        aleatorio.setAttribute("src", "./img/aleatorio.png");
-        aleatorioBoolean = true;
+shuffle.addEventListener("click", () =>{
+    if(shuffleSong === false){
+        shuffleSong = true;
+        shuffle.setAttribute("src", "./img/aleatorioVerde.png");
+    }else{
+        shuffleSong = false;
+        shuffle.setAttribute("src", "./img/aleatorio.png");
     }
 });
 
-function plays(id){
-    if(pausa == false){
-        start.setAttribute("src", "./img/pausa.png");
-        pausa = true;
-        if(!cyberpunkS.paused){
-            cyberpunkS.pause();
-        }
-        if(!risingS.paused){
-            risingS.pause();
-        }
-        if(!snakeS.paused){
-            snakeS.pause();
-        }
-        if(!personaS.paused){
-            personaS.pause();
-        }
-    }else if(pausa == true){
-        start.setAttribute("src", "./img/play.png");
-        pausa = false;
-        switch(id){
-            case "cp":
-                cyberpunkS.play();
-                break;
-            case "mgr":
-                risingS.play();
-                break;
-            case "mg3":
-                snakeS.play();
-                break;
-            case "p5r":
-                personaS.play();
-                break;
+previus.addEventListener("click", () =>{
+    let actualCurrentIdSong = currentIdSong - 1;
+    if(actualCurrentIdSong === 0){
+        actualCurrentIdSong = songsList.length;
+    }
+    setCurrentSong(actualCurrentIdSong);
+    playAudio();
+});
+
+next.addEventListener("click", () =>{
+    let newCurrentIdSong;
+    if(shuffleSong === true){
+        newCurrentIdSong = Math.floor(Math.random() * songsList.length) + 1;
+    }else{
+        newCurrentIdSong = currentIdSong + 1;
+        if(newCurrentIdSong > songsList.length){
+        newCurrentIdSong = 1;
         }
     }
-}
+    setCurrentSong(newCurrentIdSong);
+    playAudio();
+});
+
+playPause.addEventListener("click", () =>{
+    if(pause == false){
+        playPause.setAttribute("src", "./img/pausa.png");
+        pause = true;
+        audio.pause();
+    }else if(pause == true){
+        playPause.setAttribute("src", "./img/play.png");
+        pause = false;
+        audio.play();
+    }
+});
+
+setCurrentSong(currentIdSong);
+
+function setCurrentSong(id){
+    currentSong = songsList.find(song => song.id === id);
+    currentIdSong = id;
+    title.innerText = currentSong.title;
+    img.src = currentSong.image;
+    audio.src = currentSong.audio;
+    audio.load();
+};
+
+function playAudio(){
+    audio.src = currentSong.audio;
+    audio.play
+};
